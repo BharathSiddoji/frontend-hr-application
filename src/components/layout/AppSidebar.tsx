@@ -5,6 +5,9 @@ import {
   BarChart3,
   Settings,
   Home,
+  UserCircle,
+  Clock,
+  FileText,
 } from "lucide-react";
 import {
   Sidebar,
@@ -17,8 +20,10 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import { UserRole } from "@/types/auth";
 
-const menuItems = [
+const hrMenuItems = [
   { title: "Dashboard", icon: Home, path: "/" },
   { title: "Employees", icon: Users, path: "/employees" },
   { title: "Attendance", icon: Calendar, path: "/attendance" },
@@ -27,12 +32,29 @@ const menuItems = [
   { title: "Settings", icon: Settings, path: "/settings" },
 ];
 
+const employeeMenuItems = [
+  { title: "Dashboard", icon: Home, path: "/" },
+  { title: "My Profile", icon: UserCircle, path: "/profile" },
+  { title: "Attendance", icon: Clock, path: "/attendance" },
+  { title: "Tasks", icon: ClipboardList, path: "/tasks" },
+  { title: "Documents", icon: FileText, path: "/documents" },
+];
+
+const getMenuItems = (role: UserRole) => {
+  return role === "hr" ? hrMenuItems : employeeMenuItems;
+};
+
 export function AppSidebar() {
+  const { user } = useAuth();
+  const menuItems = user ? getMenuItems(user.role) : [];
+
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>HR Management</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            {user?.role === "hr" ? "HR Management" : "Employee Portal"}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
