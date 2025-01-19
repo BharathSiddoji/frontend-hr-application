@@ -10,8 +10,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { UserPlus, Search, Edit, Trash2 } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { AddEmployeeForm } from "@/components/employees/AddEmployeeForm";
 
 const mockEmployees = [
   {
@@ -47,11 +55,24 @@ export default function Employees() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [employees, setEmployees] = useState(mockEmployees);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleAddEmployee = () => {
+  const handleAddEmployee = (data) => {
+    const newEmployee = {
+      id: employees.length + 1,
+      name: `${data.firstName} ${data.lastName}`,
+      email: data.email,
+      department: "TBD",
+      position: "TBD",
+      joinDate: data.dateOfJoining,
+      status: "Active",
+    };
+
+    setEmployees([...employees, newEmployee]);
+    setIsDialogOpen(false);
     toast({
-      title: "Feature Coming Soon",
-      description: "The ability to add new employees will be available soon.",
+      title: "Success",
+      description: "New employee has been added successfully.",
     });
   };
 
@@ -82,10 +103,20 @@ export default function Employees() {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Employee Management</h1>
-          <Button onClick={handleAddEmployee}>
-            <UserPlus className="mr-2 h-4 w-4" />
-            Add Employee
-          </Button>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button>
+                <UserPlus className="mr-2 h-4 w-4" />
+                Add Employee
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Add New Employee</DialogTitle>
+              </DialogHeader>
+              <AddEmployeeForm onSubmit={handleAddEmployee} />
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="flex items-center space-x-2">
