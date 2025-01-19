@@ -19,7 +19,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
 const hrMenuItems = [
@@ -45,6 +45,7 @@ const getMenuItems = (role) => {
 
 export function AppSidebar() {
   const { user } = useAuth();
+  const location = useLocation();
   const menuItems = user ? getMenuItems(user.role) : [];
 
   return (
@@ -59,7 +60,11 @@ export function AppSidebar() {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link to={item.path} className="flex items-center gap-3">
+                    <Link 
+                      to={item.path} 
+                      className="flex items-center gap-3"
+                      data-active={location.pathname === item.path}
+                    >
                       <item.icon className="h-5 w-5" />
                       <span>{item.title}</span>
                     </Link>
