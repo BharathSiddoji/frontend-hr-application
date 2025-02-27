@@ -1,3 +1,4 @@
+
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import {
   Table,
@@ -105,14 +106,14 @@ export default function Employees() {
           <h1 className="text-2xl font-bold">Employee Management</h1>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="bg-primary hover:bg-primary/90">
                 <UserPlus className="mr-2 h-4 w-4" />
                 Add Employee
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Add New Employee</DialogTitle>
+                <DialogTitle className="text-primary">Add New Employee</DialogTitle>
               </DialogHeader>
               <AddEmployeeForm onSubmit={handleAddEmployee} />
             </DialogContent>
@@ -121,7 +122,7 @@ export default function Employees() {
 
         <div className="flex items-center space-x-2">
           <div className="relative flex-1">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-primary" />
             <Input
               placeholder="Search employees..."
               value={searchTerm}
@@ -133,7 +134,7 @@ export default function Employees() {
 
         <div className="rounded-md border overflow-x-auto">
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-secondary">
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
@@ -146,18 +147,27 @@ export default function Employees() {
             </TableHeader>
             <TableBody>
               {filteredEmployees.map((employee) => (
-                <TableRow key={employee.id}>
-                  <TableCell>{employee.name}</TableCell>
+                <TableRow key={employee.id} className="hover:bg-muted/50">
+                  <TableCell className="font-medium">{employee.name}</TableCell>
                   <TableCell>{employee.email}</TableCell>
                   <TableCell>{employee.department}</TableCell>
                   <TableCell>{employee.position}</TableCell>
                   <TableCell>{employee.joinDate}</TableCell>
-                  <TableCell>{employee.status}</TableCell>
+                  <TableCell>
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      employee.status === "Active" 
+                        ? "bg-green-100 text-green-800" 
+                        : "bg-amber-100 text-amber-800"
+                    }`}>
+                      {employee.status}
+                    </span>
+                  </TableCell>
                   <TableCell className="text-right">
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => handleEditEmployee(employee.id)}
+                      className="text-primary hover:text-primary/80 hover:bg-primary/10"
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -165,6 +175,7 @@ export default function Employees() {
                       variant="ghost"
                       size="icon"
                       onClick={() => handleDeleteEmployee(employee.id)}
+                      className="text-destructive hover:text-destructive/80 hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>

@@ -1,3 +1,4 @@
+
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto">
           <div className="border-b">
             <div className="container flex h-16 items-center justify-between">
-              <h2 className="text-lg font-semibold">Welcome, {user?.name}</h2>
+              <h2 className="text-lg font-semibold">
+                <span className="text-primary">SaNa HR</span> management application
+              </h2>
               <Button variant="ghost" onClick={handleLogout}>
                 Logout
               </Button>

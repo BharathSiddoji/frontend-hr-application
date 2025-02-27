@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { useAuth } from "@/context/AuthContext";
@@ -82,10 +83,10 @@ const Index = () => {
                 <CardTitle className="text-sm font-medium">
                   {stat.title}
                 </CardTitle>
-                <stat.icon className="h-4 w-4 text-muted-foreground" />
+                <stat.icon className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{stat.value}</div>
+                <div className="text-2xl font-bold text-primary">{stat.value}</div>
                 <p className="text-xs text-muted-foreground">
                   {stat.description}
                 </p>
@@ -126,14 +127,14 @@ const Index = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                  <Clock className="h-5 w-5 text-muted-foreground" />
+                  <Clock className="h-5 w-5 text-primary" />
                   <div>
                     <p className="font-medium">Team Meeting</p>
                     <p className="text-sm text-muted-foreground">10:00 AM - 11:00 AM</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                  <ClipboardList className="h-5 w-5 text-muted-foreground" />
+                  <ClipboardList className="h-5 w-5 text-primary" />
                   <div>
                     <p className="font-medium">Project Review</p>
                     <p className="text-sm text-muted-foreground">2:00 PM - 3:00 PM</p>
@@ -148,14 +149,14 @@ const Index = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3 p-3 border rounded-lg">
-                  <Bell className="h-5 w-5 text-muted-foreground" />
+                  <Bell className="h-5 w-5 text-primary" />
                   <div>
                     <p className="font-medium">Office Maintenance</p>
                     <p className="text-sm text-muted-foreground">Server maintenance scheduled for this weekend</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 border rounded-lg">
-                  <Bell className="h-5 w-5 text-muted-foreground" />
+                  <Bell className="h-5 w-5 text-primary" />
                   <div>
                     <p className="font-medium">Holiday Notice</p>
                     <p className="text-sm text-muted-foreground">Office will be closed next Monday</p>
